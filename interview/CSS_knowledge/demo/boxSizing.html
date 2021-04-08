@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>boxSizing</title>
+    <style>
+        .main {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .right {
+            position: absolute;
+            right: 20px;
+        }
+
+        .left {
+            position: absolute;
+            left: 20px;
+        }
+
+        .item {
+            width: 200px;
+            height: 100px;
+            border: 5px solid #f27a7a;
+            background-color: #f4ab3f;
+        }
+
+        .subItem {
+            width: 100%;
+            height: 50px;
+            border: 5px solid #090d13;
+            background-color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .contentBox {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        .borderBox {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="left">
+        <div class="item">
+            <div class="subItem contentBox">contentBox</div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="item">
+            <div class="subItem borderBox">borderBox</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

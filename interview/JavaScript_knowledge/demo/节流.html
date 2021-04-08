@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节流</title>
+</head>
+<body>
+    <div>
+        <input type="text">
+    </div>
+<script>
+    // 事件触发后每隔一段时间触发一次 可触发多次
+    const throttle = function (func, delay) {
+        let timer = null
+        return function () {
+            let that = this
+            if (!timer) {
+                timer = setTimeout(function () {
+                    func.apply(that, arguments)
+                    timer = null
+                }, delay)
+            }
+        }
+    }
+
+    function handle() {
+        console.log(this.value)
+    }
+
+    document.querySelector('input[type="text"]').addEventListener('keyup', throttle(handle, 1000))
+</script>
+</body>
+</html>
