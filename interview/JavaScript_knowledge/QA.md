@@ -83,7 +83,7 @@ class Person {
 }
 ```
 
-[手写Symbol Demo](./demo/手写Symbol.js)
+[手写Symbol Demo](这个是啥/手写Symbol.js)
 
 --
 
@@ -1760,7 +1760,7 @@ JavaScript中模拟 "面向对象" 中 "类" 的实现方式，是利用了JavaS
 
 instanceof 只能处理对象与函数的关系判断。instanceof 左边是对象，右边是函数。判断规则：沿着对象的__proto__ 进行查找，沿着函数的 prototype 进行查找，如果有关联引用则返回 true，否则返回 false。
 
-[手写instanceof](./demo/手写instanceof.js)
+[手写instanceof](这个是啥/手写instanceof.js)
 
 --
 
@@ -1946,7 +1946,7 @@ util.inherits todo
 
 4.如果函数没有返回其他对象，则返回这个新对象（注意构造函数的return，一般不会有return)
 
-[手写New](./demo/手写New.js)
+[手写New](这个是啥/手写New.js)
 
 --
 

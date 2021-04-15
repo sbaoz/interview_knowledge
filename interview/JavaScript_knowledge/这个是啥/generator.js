@@ -10,6 +10,7 @@ function* generatorFn() {
     // return 2;
     yield 2;
     console.log('3 start');
+    // yield关键字只能在生成器函数内部使用，用着其他地方会抛出错误。
     yield 3;
     console.log('done');
 }
