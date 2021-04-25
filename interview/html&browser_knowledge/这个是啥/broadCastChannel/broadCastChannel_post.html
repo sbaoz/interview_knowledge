@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>broadcastChannel</title>
+</head>
+<body>
+<div>
+    <button onclick="postMessage()">postMsg</button>
+    <script>
+        const bc = new BroadcastChannel('LaLa');
+        function postMessage() {
+            bc.postMessage({
+                msg: 'lalalala',
+                from: 'postPage'
+            });
+        }
+    </script>
+</div>
+</body>
+</html>

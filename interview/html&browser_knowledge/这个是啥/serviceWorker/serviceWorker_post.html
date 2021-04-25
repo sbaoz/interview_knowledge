@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>serviceWorker</title>
+</head>
+<body>
+<button onclick="postMessage()">postMsg</button>
+<script>
+    navigator.serviceWorker.register('./util.sw.js').then(function () {
+        console.log('注册成功');
+    })
+    function postMessage() {
+        navigator.serviceWorker.controller.postMessage({
+            msg: 'lalalala',
+            from: 'postPage'
+        });
+    }
+</script>
+</body>
+</html>
