@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>div垂直居中</title>
+    <style>
+        .container {
+            overflow: hidden;
+            width: 250px;
+            height: 250px;
+            background-color: #888888;
+        }
+        .container:nth-child(2n) {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flex .middle {
+            width: 150px;
+            height: 150px;
+            background-color: #168bf5;
+        }
+        .position {
+            position: relative;
+        }
+        .position .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            background-color: #168bf5;
+        }
+    </style>
+</head>
+<body>
+<div class="container flex">
+    <div class="middle">
+        flex布局实现（元素宽度已知）
+    </div>
+</div>
+<div class="container position">
+    <div class="middle">
+        position（元素宽度已知）
+    </div>
+</div>
+<div class="container">
+    <div class="middle">
+        position（元素宽度已知）
+    </div>
+</div>
+</body>
+</html>
