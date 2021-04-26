@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件传播</title>
+</head>
+<body>
+<div>
+    <p>click</p>
+</div>
+<script>
+    const phases = {
+        1: 'capture',
+        2: 'target',
+        3: 'bubble'
+    }
+    const div = document.querySelector('div')
+    const p = document.querySelector('p')
+    div.addEventListener('click', callback, true)
+    p.addEventListener('click', callback, true)
+    div.addEventListener('click', callback, false)
+    p.addEventListener('click', callback, false)
+    function callback(e) {
+        const tag = e.currentTarget.tagName;
+        const phase = phases[e.eventPhase];
+        console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+    }
+</script>
+</body>
+</html>

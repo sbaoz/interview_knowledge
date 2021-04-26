@@ -76,8 +76,8 @@ const child3Instance1 = new Child3('huhu', 'male')
 child3Instance1.sayHi()
 console.log(child3Instance1.name) // 这个name是实例对象上属性
 console.log(child3Instance1.sex)
-console.log(child3Instance1.age)
-console.log(Child3.prototype);
+console.log(child3Instance1.age) // 这个age是原型对象上的属性
+console.log(Child3.prototype); // 原型对象上创建了不必要的属性
 // 原型式继承
 console.log('-----------原型式继承-------------')
 // ES5 Object.create的实现 将传入的对象作为创建的对象的原型
