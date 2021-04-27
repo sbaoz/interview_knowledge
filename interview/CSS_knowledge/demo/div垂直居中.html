@@ -6,7 +6,7 @@
     <style>
         .container {
             overflow: hidden;
-            width: 250px;
+            width: 100%;
             height: 250px;
             background-color: #888888;
         }
@@ -19,7 +19,7 @@
             justify-content: center;
             align-items: center;
         }
-        .flex .middle {
+        .flex .middle_flex {
             width: 150px;
             height: 150px;
             background-color: #168bf5;
@@ -27,32 +27,78 @@
         .position {
             position: relative;
         }
-        .position .middle {
+        .position .middle_margin {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -75px 0 0 -75px;
+            width: 150px;
+            height: 150px;
+            background-color: #168bf5;
+        }
+        .position .middle_transform {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            background-color: #168bf5;
+        }
+        .position .middle_margin_auto {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
             width: 150px;
             height: 150px;
             background-color: #168bf5;
+        }
+        .center {
+            text-align: center;
+        }
+        .margin_auto  {
+            width: 150px;
+            height: 150px;
+            background-color: #168bf5;
+            margin: 0 auto;
+        }
+        .line_height {
+            height: 250px;
+            line-height: 250px;
         }
     </style>
 </head>
 <body>
 <div class="container flex">
-    <div class="middle">
+    <div class="middle_flex">
         flex布局实现（元素宽度已知）
     </div>
 </div>
 <div class="container position">
-    <div class="middle">
+    <div class="middle_margin">
         position（元素宽度已知）
+        距上50%，据左50%，然后减去元素自身宽度的一半距离就可以实现
     </div>
 </div>
-<div class="container">
-    <div class="middle">
-        position（元素宽度已知）
+<div class="container position">
+    <div class="middle_transform">
+        position transform （元素未知宽度）
+        将上面例子中的 margin: -50px 0 0 -50px;替换为：transform: translate(-50%,-50%);
     </div>
+</div>
+<div class="container position">
+    <div class="middle_margin_auto">
+        position（元素已知宽度）（left，right，top，bottom为0，maigin：auto ）
+        子元素不设置宽度和高度，将会铺满整个父级
+    </div>
+</div>
+<div class="container center">
+    <span>text-align : center  给元素的父级加，可以使文本或者行级元素(例如：图片)水平居中</span>
+    <div class="margin_auto">margin: 0 auto 使用条件：父级元素宽度可有可无，子级元素必须使块元素，而且要有宽度（否则继承父级）</div>
+</div>
+<div class="container center">
+    <span class="line_height">line-height : 值为元素的高度，可以使元素的文本内容垂直居中</span>
 </div>
 </body>
 </html>
