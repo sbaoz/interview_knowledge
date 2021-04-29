@@ -7,7 +7,12 @@
     <title>Title</title>
 </head>
 <body>
-<div><h1>Modular Demo 1: 未使用AMD(require.js)</h1></div>
+<div>
+    <h1>Modular Demo 1: 未使用AMD(require.js)</h1>
+    <p>这种方式缺点：
+        首先会发送多个请求，其次引入的js文件顺序不能搞错，否则会抱错
+    </p>
+</div>
 <script type="text/javascript" src="modules/dataService.js"></script>
 <script type="text/javascript" src="modules/alerter.js"></script>
 <script type="text/javascript" src="app.js"></script>
