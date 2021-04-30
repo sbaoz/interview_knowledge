@@ -1,0 +1,24 @@
+{
+  "name": "tree-shaking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "rollup": "rollup -c",
+    "webpack": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "babel-loader": "^8.2.2",
+    "rollup": "^2.46.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.36.1",
+    "webpack-cli": "^4.6.0"
+  }
+}
