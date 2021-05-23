@@ -88,10 +88,6 @@ function createObj1(object) {
     F.prototype = object
     return new F()
 }
-const parent = {
-    name: 'xixi',
-    friends: ['haha', 'lala']
-}
 const child1 = createObj1(parent)
 console.log(child1.name);
 // 和原型链继承一样 实例共享引用类型的属性
@@ -102,6 +98,10 @@ console.log(child2.friends);
 console.log('-----------寄生式继承-------------')
 // 创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象
 function createObj2(object) {
+const parent = {
+    name: 'xixi',
+    friends: ['haha', 'lala']
+}
     var clone = Object.create(object);
     // 跟借用构造函数模式一样，每次创建对象都会创建一遍方法
     clone.sayName = function () {

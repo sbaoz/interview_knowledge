@@ -3,9 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Routes from './router/index';
 
 const pages = [
-    'purecomponent',
-    'memo',
-    'forwardref'
+    'asynccloneelement',
 ];
 
 class App extends React.Component {
@@ -16,7 +14,7 @@ class App extends React.Component {
     setLink =() => {
         return pages.map(page => {
             return (
-                <Link key={page} to={`/${page}`}>{`${page}/`}</Link>
+                <Link key={page} to={`/${page}`}>{`${page}   `}</Link>
             )
         })
     }
@@ -24,7 +22,7 @@ class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {this.setLink()}
+                {/*{this.setLink()}*/}
                 <Routes />
             </React.Fragment>
         )
