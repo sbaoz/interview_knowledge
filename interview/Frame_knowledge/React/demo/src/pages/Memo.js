@@ -30,6 +30,14 @@ export default class Index extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log('componentDidMount')
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate')
+    }
+
     render() {
         const { num, number } = this.state;
         return (
