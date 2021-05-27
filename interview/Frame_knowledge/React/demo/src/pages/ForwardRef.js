@@ -46,7 +46,7 @@ class Button extends React.Component {
 /*
 * 隔代ref引用 需要使用forwardRef
 * react不予许ref通过props传递，因为组件上已经有ref这个属性，在组件调和过程中，已经被特殊处理
-* forwardRef出现就是解决这个问题，吧ref转发到自定义的forwardRef定义的属性上，让ref可以通过props传递
+* forwardRef出现就是解决这个问题，把ref转发到自定义的forwardRef定义的属性上，让ref可以通过props传递
 * */
 const FancyButton = React.forwardRef((props, ref) => {
     return (
