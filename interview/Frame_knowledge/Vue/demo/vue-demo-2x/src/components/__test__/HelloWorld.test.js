@@ -6,7 +6,9 @@ describe("测试HelloWorld.vue组件的测试套件，可含有多个测试用�
     const wrapper = mount(HelloWorld, {}); // 使用mount可以创建一个包涵被挂载和渲染的一个实例
     expect(wrapper.element).toMatchInlineSnapshot(`
       <div>
-        <p>
+        <p
+          style="display: none;"
+        >
           a test component
         </p>
       </div>
