@@ -6,14 +6,9 @@ const pages = [
     'asynccloneelement',
 ];
 
-export const GlobalContext = React.createContext('')
-
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            global: 'GlobalContext'
-        }
     }
 
     setLink =() => {
@@ -28,14 +23,7 @@ class App extends React.Component {
         return (
             <React.Fragment>
                 {/*{this.setLink()}*/}
-                <GlobalContext.Provider value={this.state.global}>
                     <Routes />
-                    <button onClick={() => {this.setState(state => {
-                        return {
-                            global: state.global + '!'
-                        }
-                    })}}>changeContext</button>
-                </GlobalContext.Provider>
             </React.Fragment>
         )
     }
