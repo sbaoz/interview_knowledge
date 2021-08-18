@@ -7,7 +7,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)?$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -16,24 +16,25 @@ module.exports = {
                 ]
             },
             {
-                test: /\.less$/i,
+                test: /\.less$/,
+                exclude: /node_modules/,
                 use: [
-                    {
-                        loader: 'style-loader'
-                    },
+                    'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true,
-                        },
+                            modules: {
+                                localIdentName: '[name]__[local]__[hash:base64:5]',
+                            }
+                        }
                     },
+                    'postcss-loader',
                     {
                         loader: 'less-loader',
                         options: {
-                            sourceMap: true,
                             lessOptions: {
-                                paths: [path.resolve(__dirname, "node_modules")],
-                            },
+                                javascriptEnabled: true,
+                            }
                         },
                     }
                 ]
