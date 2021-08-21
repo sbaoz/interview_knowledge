@@ -1,7 +1,9 @@
 import React, {createRef, useEffect, useRef, useState} from 'react';
 
 function Index () {
-    const ref = useRef(null);
+    // 函数组件中不能使用createRef
+    const ref = createRef(null);
+    // const ref = useRef(null);
     const [data, setData] = useState(0);
 
     useEffect(() => {
