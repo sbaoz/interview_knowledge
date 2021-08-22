@@ -12,6 +12,7 @@ function Test() {
 * React.lazy和Suspense技术还不支持服务端渲染，想要在服务端渲染的应用中使用，推荐使用Loadable Components这个库
 * */
 const LazyTest = lazy(() => {
+    // import(/* webpackChunkName: 'Test' */ './Test')
     return new Promise((resolve) => {
         setTimeout(function () {
             resolve({
