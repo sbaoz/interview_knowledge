@@ -15,7 +15,7 @@ function LogMemo({num}) {
         return () => {
             console.log(num);
         }
-    }, [])
+    }, [num])
 
     return (
         <button onClick={() => printLog()}>click!</button>
