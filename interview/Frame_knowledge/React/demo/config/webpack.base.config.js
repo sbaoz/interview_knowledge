@@ -16,6 +16,13 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
                 test: /\.less$/,
                 use: [
                     'style-loader',
@@ -23,7 +30,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                localIdentName: '[name]__[local]__[hash:base64:5]',
+                                localIdentName: '[path][name]__[local]__[hash:base64:5]',
                             }
                         }
                     },
