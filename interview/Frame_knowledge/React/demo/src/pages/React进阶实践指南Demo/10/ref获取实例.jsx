@@ -2,8 +2,8 @@ import React from 'react';
 
 function HOC(Component) {
     return class WrapComponent extends React.Component {
-        constructor() {
-            super();
+        constructor(props) {
+            super(props);
             this.node = null;
         }
         componentDidMount() {

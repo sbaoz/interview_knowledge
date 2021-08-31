@@ -1,41 +1,37 @@
 import React from 'react';
 
-function Home() {
-    return <div>Home</div>
+function Home(props) {
+    console.log(`Home ${props.content}`);
+    return <div>{props.content}</div>
 }
 
+Home = React.memo(Home);
+
 function HOC(Component) {
-    return () => {
-        return <Component />
+    return (props) => {
+        return <Component {...props} />
     }
 }
 
-
-class Index1 extends React.PureComponent {
+class Index1 extends React.Component {
     render() {
         const WrapHome = HOC(Home);
-
-        console.log(111);
-        return <WrapHome />
+        return <WrapHome content='class component' />
     }
 }
 
 function Index2() {
     const WrapHome = HOC(Home);
-
-    console.log(222);
-    return <WrapHome />
+    return <WrapHome content='function component' />
 }
 
-Index2 = React.memo(Index2);
-
 export default () => {
-    const [ignore, forceUpdate] = React.useState(false);
+    const [ignore, forceUpdate] = React.useState(null);
     return (
         <div>
             <Index1 />
             <Index2 />
-            <button onClick={() => forceUpdate(!ignore)}>click</button>
+            <button onClick={() => forceUpdate({})}>click</button>
         </div>
     )
 }
