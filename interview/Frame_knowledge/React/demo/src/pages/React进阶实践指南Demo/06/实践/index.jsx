@@ -10,7 +10,7 @@ function Item({ item }) {
     );
 }
 
-function fetchDate(page) {
+function fetchData(page) {
     return new Promise(resolve => {
         setTimeout(function () {
             const data = {
@@ -45,7 +45,7 @@ const Index = (props) => {
             console.log('没有数据了');
             return;
         }
-        const response = await fetchDate(data.page + 1);
+        const response = await fetchData(data.page + 1);
         if (response.code === 0) {
             setData({
                 ...response,
