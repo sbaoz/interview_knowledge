@@ -1,16 +1,14 @@
 import React from 'react';
 export default function (componentFactory) {
     class AsyncComponent extends React.Component {
-        constructor() {
-            super();
-            this.state = {component: null};
-        }
+        state = {component: null};
         async componentDidMount() {
-            let {default: component} = await new Promise(resolve => {
-                setTimeout(() => {
-                    resolve(componentFactory())
-                }, 1000);
-            });
+            // let {default: component} = await new Promise(resolve => {
+            //     setTimeout(() => {
+            //         resolve(componentFactory())
+            //     }, 1000);
+            // });
+            let {default: component} = await componentFactory();
             this.setState({component});
         }
         render() {

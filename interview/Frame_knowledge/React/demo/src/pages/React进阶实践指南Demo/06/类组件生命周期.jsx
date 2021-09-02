@@ -149,9 +149,9 @@ export default class Index extends React.Component {
 
     /*
     * 如果存在getDerivedStateFromProps和getSnapshotBeforeUpdate就不会执行componentWillMount
-    * UNSAFE_componentWillMount将被废弃
+    * componentWillMount将被废弃
     * */
-    // componentWillMount() {
+    // UNSAFE_componentWillMount() {
     //     console.log('render阶段 组件初始化 componentWillMount');
     // }
 
@@ -172,7 +172,7 @@ export default class Index extends React.Component {
     }
 
     /*
-    * React调和玩所有的fiber节点 到commit阶段 在组件初始化commit阶段 会调用componentDidMount
+    * React调和完所有的fiber节点 到commit阶段 在组件初始化commit阶段 会调用componentDidMount
     * */
     componentDidMount() {
         console.log('commit阶段:layout 组件初始化 componentDidMount');
