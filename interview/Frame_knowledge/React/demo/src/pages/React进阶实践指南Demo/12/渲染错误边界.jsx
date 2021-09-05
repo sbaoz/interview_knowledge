@@ -11,7 +11,7 @@ function uploadErrorLog() {}
 export default class Index extends React.Component {
   state = { hasError: false };
   // 如果存在getDerivedStateFromError生命周期钩子
-  // 那么将不需要componentDidCatch生命周期降级UI
+  // 那么将不需要在componentDidCatch生命周期里实现降级UI
   static getDerivedStateFromError() {
     return { hasError: true };
   }
