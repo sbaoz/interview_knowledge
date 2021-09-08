@@ -1,18 +1,18 @@
 import React from 'react';
 
 // 冒泡阶段和捕获阶段
-() => {
+export default () => {
     const handleClick = () => {console.log('模拟冒泡阶段执行');}
     const handleClickCapture = () => {console.log('模拟捕获阶段执行');}
     return (
-        <div>
+        <div onClick={() => console.log(1)} onClickCapture={() => console.log(2)}>
             <button onClick={handleClick} onClickCapture={handleClickCapture}>冒泡/捕获</button>
         </div>
     )
 }
 
 // 阻止冒泡 阻止默认行为
-export default () => {
+() => {
     const handleClick = (e) => {
         console.log('阻止冒泡');
         e.stopPropagation(); // 阻止事件冒泡 handleFatherClick不会触发
