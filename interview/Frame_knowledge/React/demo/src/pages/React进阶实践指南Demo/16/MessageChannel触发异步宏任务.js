@@ -19,6 +19,15 @@ requestHostCallback = function (callback) {
     port.postMessage(null);
   }
 };
-requestHostCallback(function () {
-  console.log(11111111111);
-});
+
+(function() {
+  const arr = new Array(20000).fill(1);
+  arr.forEach(item => {
+    console.log(item);
+  });
+  requestHostCallback(function () {
+    console.log(11111111111);
+  });
+})()
+
+
