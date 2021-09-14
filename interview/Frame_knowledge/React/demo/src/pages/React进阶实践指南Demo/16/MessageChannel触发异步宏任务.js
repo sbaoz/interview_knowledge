@@ -20,14 +20,12 @@ requestHostCallback = function (callback) {
   }
 };
 
-(function() {
+(function () {
   const arr = new Array(20000).fill(1);
-  arr.forEach(item => {
+  arr.forEach((item) => {
     console.log(item);
   });
   requestHostCallback(function () {
     console.log(11111111111);
   });
-})()
-
-
+})();
