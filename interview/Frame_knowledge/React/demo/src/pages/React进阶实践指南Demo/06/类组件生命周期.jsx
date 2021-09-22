@@ -90,17 +90,17 @@ export default class Index extends React.Component {
     * 3. 作为类的静态属性方法执行 内部是访问不到this的 更趋向于纯函数
     * 4. 在生命周期定义为取缔componentWillMount和componentWillReceiveProps
     * */
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('render阶段 组件初始化/更新 getDerivedStateFromProps', nextProps, prevState);
-        if (nextProps.match.params.param != prevState.a) {
-            return {
-                a: parseInt(nextProps.match.params.param) ,
-                b: prevState.b ? prevState.b + '!' : 'return in getDerivedStateFromProps',
-                c: prevState.c.concat(parseInt(nextProps.match.params.param))
-            }
-        }
-        return null;
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     console.log('render阶段 组件初始化/更新 getDerivedStateFromProps', nextProps, prevState);
+    //     if (nextProps.match.params.param != prevState.a) {
+    //         return {
+    //             a: parseInt(nextProps.match.params.param) ,
+    //             b: prevState.b ? prevState.b + '!' : 'return in getDerivedStateFromProps',
+    //             c: prevState.c.concat(parseInt(nextProps.match.params.param))
+    //         }
+    //     }
+    //     return null;
+    // }
 
     /*
     * 获取更新前的快照
@@ -111,14 +111,14 @@ export default class Index extends React.Component {
     *   2.2 prevState：更新前的state
     * 3. 返回值作为componentDidUpdate的第三个参数 解决render阶段和commit阶段之间可能存在的延迟
     * */
-    getSnapshotBeforeUpdate(prevProps, prevState) {
-        console.log('commit阶段:before_mutation 组件更新 getSnapshotBeforeUpdate', prevProps, prevState);
-        // dom更新前的信息
-        return {
-            divColor: this.divRef.current.style.color,
-            ulScrollHeight: this.ulRef.current.scrollHeight - this.ulRef.current.scrollTop
-        };
-    }
+    // getSnapshotBeforeUpdate(prevProps, prevState) {
+    //     console.log('commit阶段:before_mutation 组件更新 getSnapshotBeforeUpdate', prevProps, prevState);
+    //     // dom更新前的信息
+    //     return {
+    //         divColor: this.divRef.current.style.color,
+    //         ulScrollHeight: this.ulRef.current.scrollHeight - this.ulRef.current.scrollTop
+    //     };
+    // }
 
     /*
     * 1. 返回值决定是否继续执行render函数 调和子节点
@@ -143,25 +143,25 @@ export default class Index extends React.Component {
     *   2.2 nextContext：父组件新传递的context
     * componentWillReceiveProps将被废弃
     * */
-    // UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
-    //     console.log('render阶段 组件更新 componentWillReceiveProps', nextProps, nextContext);
-    // }
+    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
+        console.log('render阶段 组件更新 componentWillReceiveProps', nextProps, nextContext);
+    }
 
     /*
     * 如果存在getDerivedStateFromProps和getSnapshotBeforeUpdate就不会执行componentWillMount
     * componentWillMount将被废弃
     * */
-    // UNSAFE_componentWillMount() {
-    //     console.log('render阶段 组件初始化 componentWillMount');
-    // }
+    UNSAFE_componentWillMount() {
+        console.log('render阶段 组件初始化 componentWillMount');
+    }
 
     /*
     * 1. 存在getDerivedStateFromProps时不会执行
     * componentWillUpdate将被废弃
     * */
-    // UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
-    //     console.log('render阶段 组件更新 componentWillUpdate', nextProps, nextState, nextContext);
-    // }
+    UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
+        console.log('render阶段 组件更新 componentWillUpdate', nextProps, nextState, nextContext);
+    }
 
     /*
     *   在组件卸载及销毁之前直接调用。在此方法中执行必要的清理操作，例如，清除 timer，取消网络请求或清除在 componentDidMount() 中创建的订阅等。
@@ -188,12 +188,14 @@ export default class Index extends React.Component {
     * */
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('commit阶段:layout 组件更新 componentDidUpdate', prevProps, prevState, snapshot);
-        this.divRef.current.style.color = snapshot.divColor === 'red' ? 'blue' : 'red';
-        this.ulRef.current.scrollTop = this.ulRef.current.scrollHeight - snapshot.ulScrollHeight;
+        if (snapshot) {
+            this.divRef.current.style.color = snapshot.divColor === 'red' ? 'blue' : 'red';
+            this.ulRef.current.scrollTop = this.ulRef.current.scrollHeight - snapshot.ulScrollHeight;
+        }
     }
 
     changeUrlParam() {
-        this.props.history.replace(`/${this.state.a + 1}`);
+        this.props.history.replace(`/${parseInt(this.props.match.params.param) + 1}`);
     }
 
     changeState = () => {
