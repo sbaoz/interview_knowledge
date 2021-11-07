@@ -8,13 +8,14 @@ export default function Index(props) {
         console.log('监听number变化，此时的number是:  ' + number);
     }, [number]);
     const handleClick = () => {
+        setNumber(1);
         /* 高优先级更新 */
         ReactDOM.flushSync(() => {
             setNumber(2);
             console.log(number); // 在同一个函数执行上下文中 是拿不到最新的state的
         });
         /* 批量更新 */
-        setNumber(1);
+        
         setNumber(4);
         console.log(number); // 在同一个函数执行上下文中 是拿不到最新的state的
         /* 滞后更新 ，批量更新规则被打破 */
