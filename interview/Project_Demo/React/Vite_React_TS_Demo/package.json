@@ -12,16 +12,20 @@
     "lint:prettier": "prettier --check '**/*' --end-of-line auto",
     "lint:style": "stylelint --fix 'src/**/*.less' --syntax less",
     "lint-staged": "lint-staged",
-    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx "
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
+    "mock": "json-server mock/db.json --port 3008 --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^16.11.7",
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
     "@vitejs/plugin-react": "^1.0.7",
+    "cross-env": "^7.0.3",
     "eslint": "^8.2.0",
+    "json-server": "^0.17.0",
     "less": "^4.1.2",
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1",
@@ -33,7 +37,8 @@
   },
   "dependencies": {
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "umi-request": "^1.4.0"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
