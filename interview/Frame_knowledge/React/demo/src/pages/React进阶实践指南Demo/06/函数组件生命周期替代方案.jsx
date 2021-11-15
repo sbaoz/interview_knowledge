@@ -1,9 +1,9 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 const sleep = (t) => {
-    const exitTime = new Date().getTime() + t;
+    const exitTime = new Date().getTime() + t * 1000;
     while (true) {
-        if (new Date().getTime() > exitTime) return;
+        if (new Date().getTime() > exitTime) return Promise.resolve();
     }
 }
 
@@ -23,11 +23,18 @@ const Index = function(props) {
     },[]);
 
     useEffect(() => {
-        console.log('DidUpdate');
+        sleep(3).then(() => {
+            console.log('DidUpdate 222');
+        });
+        return () => {
+            console.log('DidUpdate 111');
+        }
     });
 
     useEffect(() => {
-        console.log('cnt_useEffect: mounted/updated', cnt);
+        sleep(3).then(() => {
+            console.log('cnt_useEffect: mounted/updated', cnt);
+        });
     }, [cnt]);
 
     useEffect(() => {
@@ -49,6 +56,16 @@ const Index = function(props) {
     useEffect(() => {
         console.log('props.match.params.param_useEffect: mounted/updated', props.match.params.param);
     }, [props.match.params.param]);
+
+    useLayoutEffect(() => {
+        sleep(3).then(()=> {
+            console.log('useLayoutEffect 222');
+        });
+        return () => {
+            // commit阶段 Mutation阶段 Update时会执行useLayoutEffect的销毁函数
+            console.log('useLayoutEffect 111');
+        }
+    });
 
     const destroy = () =>  {
         props.history.push(`/`);
