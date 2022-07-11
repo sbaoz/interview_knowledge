@@ -98,15 +98,19 @@ const parent = {
   friends: ["haha", "lala"],
 };
 function createObj2(object) {
-  var clone = Object.create(object);
-  // 跟借用构造函数模式一样，每次创建对象都会创建一遍方法
-  clone.sayName = function () {
-    console.log("hi", Object.getPrototypeOf(this));
-  };
-  return clone;
+const parent = {
+    name: 'xixi',
+    friends: ['haha', 'lala']
 }
-const child3 = createObj2(parent);
-child3.sayName();
+    var clone = Object.create(object);
+    // 跟借用构造函数模式一样，每次创建对象都会创建一遍方法
+    clone.sayName = function () {
+        console.log('hi', Object.getPrototypeOf(this));
+    }
+    return clone;
+}
+const child3 = createObj2(parent)
+child3.sayName()
 // 寄生组合式继承
 console.log("-----------寄生组合式继承-------------");
 function Parent4(name) {
