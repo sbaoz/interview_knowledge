@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>XHR</title>
+</head>
+<body>
+<script>
+    const http = {
+        request: function(setting = {}) {
+            const promise = new Promise(((resolve, reject) => {
+                // 初始化请求参数
+                const _s = Object.assign({
+                    url: '', // string
+                    type: 'GET', // string 'GET' 'POST' 'DELETE'
+                    dataType: 'json', // string 期望的返回数据类型:'json' 'text' 'document' ...
+                    async: true, //  boolean true:异步请求 false:同步请求 required
+                    data: null, // any 请求参数,data需要和请求头Content-Type对应
+                    headers: {}, // object 请求头
+                    timeout: 1000, // string 超时时间:0表示不设置超时
+                    beforeSend: function(xhr) {
+                    },
+                    success: function(result, status, xhr) {
+                    },
+                    error: function(xhr, status, error) {
+                    },
+                    complete: function(xhr, status) {
+                    }
+                }, setting);
+                // 参数验证
+                if (!_s.url || !_s.type || !_s.dataType) {
+                    console.error('参数验证');
+                    return;
+                }
+                // 创建XMLHttpRequest请求对象
+                const xhr = new XMLHttpRequest();
+                // 请求开始回调函数
+                xhr.addEventListener('loadstart', function () {
+                    _s.beforeSend(xhr);
+                })
+                // 请求成功回调函数
+                xhr.addEventListener('load', function () {
+                    const status = xhr.status;
+                    if (status >= 200 && status < 300) {
+                        console.log(xhr.responseType);
+                        let result;
+                        if (xhr.responseType === 'text') {
+                            result = xhr.responseText;
+                        } else if (xhr.responseType === 'document') {
+                            result = xhr.responseXML;
+                        } else {
+                            result = xhr.response;
+                        }
+                        resolve({result, status: xhr.status, xhr});
+                        _s.success(result, xhr.status, xhr);
+                    }
+                })
+                // 请求结束
+                xhr.addEventListener('loadend', function () {
+                    _s.complete(xhr, xhr.status);
+                })
+                // 请求出错
+                xhr.addEventListener('error', function (e) {
+                    _s.error(xhr, xhr.status, e);
+                })
+                // 请求超时
+                xhr.addEventListener('timeout', function (e) {
+                    _s.error(xhr, 408, e);
+                })
+                // 如果是"简单"请求,则把data参数组装在url上
+                let useUrlParam = false;
+                let sType = _s.type.toUpperCase();
+                if (sType === 'GET' || sType === 'DELETE') {
+                    useUrlParam = true;
+                    _s.url += http.getUrlParam(_s.url, _s.data);
+                }
+                // 初始化请求
+                xhr.open(_s.type, _s.url, _s.async);
+                // 设置期望的返回数据类型
+                xhr.responseType = _s.dataType;
+                // 设置请求头
+                for (const key of Object.keys(_s.headers)) {
+                    xhr.setRequestHeader(key, _s.headers[key]);
+                }
+                // 设置超时时间
+                if (_s.async && _s.timeout) {
+                    xhr.timeout = _s.timeout;
+                }
+                // 发送请求.如果是简单请求,请求参数应为null.否则,请求参数类型需要和请求头Content-Type对应
+                xhr.send(useUrlParam ? null : JSON.stringify(_s.data));
+            }));
+            return promise;
+        },
+        getUrlParam: function (url, data) {
+            if (!data) {
+                return '';
+            }
+            const paramsStr = data instanceof String ? data : http.getQueryString(data);
+            return url.indexOf('?') !== -1 ? paramsStr : '?' + paramsStr;
+        },
+        getQueryString: function (data) {
+            if (!data) {
+                return '';
+            }
+            const paramsArr = [];
+            Object.keys(data).forEach(key => {
+                paramsArr.push(`${key}=${encodeURI(data[key])}`);
+            })
+            return paramsArr.join('&');
+        }
+    }
+    http.request({
+        url: '/interview_knowledge/interview/JavaScript_knowledge/这个是啥/节流.html',
+        type: 'POST',
+        data: {
+          a: '爱豆',
+          b: 3,
+          c: 4
+        },
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        beforeSend: function(xhr) {
+            console.log('beforeSend ', xhr);
+        },
+        success: function(result, status, xhr) {
+            console.log('success ', result, status, xhr);
+        },
+        error: function(xhr, status, error) {
+            console.log('error ', xhr, status, error);
+        },
+        complete: function(xhr, status) {
+            console.log('complete ', xhr, status);
+        }
+    }).then(result => {
+        console.log('callback by promise ', result);
+    })
+</script>
+</body>
+</html>

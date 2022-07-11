@@ -1,0 +1,17 @@
+{
+  "getUser": {
+    "code": 200,
+    "result": {
+      "name": "lalala"
+    }
+  },
+  "login": {
+    "code": 200,
+    "message": "恭喜你登陆成功！",
+    "result": {
+      "token": "lalalalala",
+      "ButtonAuth": ["a", "b", "c"],
+      "RouterAuth": ["/home", "/doc"]
+    }
+  }
+}

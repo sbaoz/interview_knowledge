@@ -1,32 +1,99 @@
-function* generatorFn() {
-    // 生成器函数在遇到yield之前会正常执行
-    console.log('1 start');
-    // 遇到yield之后执行会停止
-    // yield有点像函数的中间返回语句 它生成的值会出现在next()方法返回的对象里
-    // yield退出的生成器函数会处在done:false状态
-    yield 1;
-    console.log('2 start');
-    // 通过return关键字退出的生成器函数会处于done:true状态
-    // return 2;
-    yield 2;
-    console.log('3 start');
-    yield 3;
-    console.log('done');
-}
-const g = generatorFn();
-const gg = generatorFn();
-// 生成器对象实现了Iterable接口，它们默认的迭代器是自引用的
-console.log(g === g[Symbol.iterator]());
-const timeId = setInterval(function () {
-    // 调用next()方法后开始执行
-    // 返回值有一个done属性和一个value属性
-    const {done, value} = g.next();
-    console.log(`g:{done:${done}, value:${value}}`)
-    // 调用next()方法直到让生成器到达done: true
-    if (done) {
-        clearInterval(timeId);
-        // 生成器函数内部会针对每个生成器对象区分作用域。在一个生成器对象上调用next()不会影响其他生成器
-        console.log('gg:', gg.next());
+/*
+ * @Author: your name
+ * @Date: 2021-12-18 14:09:53
+ * @LastEditTime: 2021-12-28 14:15:01
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: \interview_knowledge\interview\JavaScript_knowledge\编程\带取消功能的延迟函数\index.js
+ */
+const createAbortError = () => {
+  const error = new Error("Delay aborted");
+  error.name = "AbortError";
+  return error;
+};
+const createDelay =
+  ({ custClearTimeout, custSetTimeout, willResolve }) =>
+  (ms, { value, signal } = {}) => {
+    if (signal && signal.aborted) {
+      return Promise.reject(createAbortError());
     }
-}, 1000)
-console.log('gg:', gg.next());
+    let timeoutId;
+    let settle;
+    let rejectFn;
+    const clear = custClearTimeout || clearTimeout;
+    const set = custSetTimeout || setTimeout;
+    const signalListener = () => {
+      clear(timeoutId);
+      rejectFn(createAbortError());
+    };
+    const cleanup = () => {
+      if (signal) {
+        signal.removeEventListener("abort", signalListener);
+      }
+    };
+    const delayPromise = new Promise((resolve, reject) => {
+      settle = () => {
+        console.log("settle");
+        cleanup();
+        if (willResolve) {
+          resolve(value);
+        } else {
+          reject(value);
+        }
+      };
+      rejectFn = reject;
+      timeoutId = set(settle, ms);
+    });
+    if (signal) {
+      signal.addEventListener("abort", signalListener, { once: true });
+    }
+    delayPromise.clear = () => {
+      clear(timeoutId);
+      timeoutId = null;
+      settle();
+    };
+    return delayPromise;
+  };
+
+const randomInteger = (minimun, maxmum) => Math.floor(Math.random() * (maxmum - minimun + 1) + minimun);
+
+const createDelayWithTimers = (clearAndSet) => {
+  const delay = {};
+  delay.resolve = createDelay({ ...clearAndSet, willResolve: true });
+  delay.reject = createDelay({ ...clearAndSet, willResolve: false });
+  delay.range = (minimun, maxmum, options) => delay.resolve(randomInteger(minimun, maxmum) * 1000, options);
+  return delay;
+};
+
+(async () => {
+  console.time("delay");
+  const cleared = [];
+  const callbacks = [];
+  const abortController = new AbortController();
+  setTimeout(() => {
+    abortController.abort();
+  }, 500);
+  const delay = createDelayWithTimers({
+    custClearTimeout: (handle) => {
+      cleared.push(handle);
+    },
+    custSetTimeout: (callback, ms) => {
+      const handle = Symbol("handle");
+      callbacks.push({ handle, callback, ms });
+      return handle;
+    },
+  });
+  try {
+    const resp = await delay.resolve(1000, { value: "lala", signal: abortController.signal });
+    // setTimeout(() => {
+    //   resp.clear();
+    // }, 300);
+    console.log("延迟输出：", resp);
+  } catch (err) {
+    console.log("异常：", err);
+  } finally {
+    callbacks[0].callback();
+    console.log(cleared, callbacks);
+  }
+  console.timeEnd("delay");
+})();

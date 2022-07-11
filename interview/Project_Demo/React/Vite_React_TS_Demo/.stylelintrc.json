@@ -1,0 +1,15 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "color-hex-case": "lower",
+    "comment-empty-line-before": "never",
+    "font-weight-notation": null,
+    "function-comma-newline-after": null,
+    "function-parentheses-newline-inside": null,
+    "function-url-quotes": "always",
+    "string-quotes": "single",
+    "no-descending-specificity": null,
+    "no-empty-source": null,
+    "no-missing-end-of-source-newline": null
+  }
+}

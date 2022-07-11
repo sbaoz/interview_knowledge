@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <style>
+        .constr {
+            width: 240px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+            text-align: left;
+        }
+        .menu {
+            background-color: #cd0000;
+        }
+        .menu-item {
+            display: block;
+            margin: 0 10px;
+            padding: 9px 10px;
+            border-bottom: 1px solid #b70000;
+            border-top: 1px solid #de3636;
+            color: #fff;
+        }
+        .menu-item:first-child {
+            border-top: 0;
+        }
+        .menu-item + .menu-item + .menu-item {
+            border-bottom: 0;
+        }
+        .inline-block {
+            display: inline-block;
+        }
+        .ao, .tu {
+            width: 0;
+            font-size: 14px;
+            line-height: 18px;
+            margin: 35px;
+            color: #fff;
+        }
+        .ao::before {
+            content: 'aaaa啊aaaa';
+            outline: 2px solid #168bf5;
+            color: transparent;
+            font-family: Consolas, Monaco, monospace;
+        }
+        .tu {
+            direction: rtl;
+        }
+        .tu::before {
+            content: '啊aaaa啊';
+            outline: 2px solid #168bf5;
+            color: transparent;
+        }
+        .father {
+            width: 300px;
+        }
+        .son {
+          margin: 0 -20px;
+        }
+        dot {
+            display: inline-block;
+            height: 1em;
+            line-height: 1;
+            text-align: left;
+            vertical-align: -0.25em;
+            overflow: hidden;
+        }
+        dot::before {
+            display: block;
+            content: '...\A..\A.';
+            white-space: pre-wrap;
+            animation: dot 3s infinite step-start both;
+        }
+        @keyframes dot {
+            33% { transform: translateY(-2em); }
+            66% { transform: translateY(-1em); }
+        }
+
+        .title::before {
+            content: attr(data-title);
+        }
+
+        .reset {
+            counter-reset: checkedItem;
+        }
+        input[type='checkbox']:checked {
+            counter-increment: checkedItem;
+        }
+        .counter::before {
+            content: counter(checkedItem);
+        }
+        .box {
+            border: 2px dashed #cd0000;
+        }
+        span {
+            padding: 50%;
+            background-color: gray;
+        }
+        ul {
+            margin-right: -20px;
+            list-style-type: none;
+        }
+        ul > li {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background-color: #cd0000;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="constr">-->
+<!--    <div class="menu">-->
+<!--        <a class="menu-item">lalalalalalalalalala-lalalalalalalalalalalala-lalalalalalalalalalalalalala</a>-->
+<!--        <a class="menu-item">lalalalalalalalalalalalala</a>-->
+<!--        <a class="menu-item">lalalalalalalalala</a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="inline-block ao"></div>-->
+<!--<div class="inline-block tu"></div>-->
+<!--<div class="father">-->
+<!--    <div class="son"></div>-->
+<!--</div>-->
+<!--<dot>...</dot>-->
+<!--<div class="title" data-title="lalala">-->
+<!--    hahaha-->
+<!--</div>-->
+<!--<div class="reset">-->
+<!--    <input type="checkbox">-->
+<!--    <input type="checkbox">-->
+<!--    <input type="checkbox">-->
+<!--    <div class="counter"></div>-->
+<!--</div>-->
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+</html>

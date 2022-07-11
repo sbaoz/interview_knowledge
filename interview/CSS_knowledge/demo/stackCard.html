@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>stackCard</title>
+    <style>
+        .wrapper {
+            position: relative;
+        }
+
+        .card {
+            position: absolute;
+            height: 300px;
+            width: 400px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .gold {
+            top: 0;
+            left: 0;
+            background-color: gold;
+        }
+
+        .silver {
+            top: 30px;
+            left: 0;
+            background-color: silver;
+        }
+
+        .current {
+            z-index: 999;
+        }
+
+        .animatin_move_down {
+            animation: 0.4s moveDown
+        }
+        @keyframes moveDown {
+            0% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+            25% {
+                transform: translate3d(0, 15px, 0);
+                opacity: .6;
+            }
+            50% {
+                transform: translate3d(0, 30px, 0);
+                opacity: .4;
+            }
+            75% {
+                transform: translate3d(0, 15px, 0);
+                opacity: .6;
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+        .animatin_move_up {
+            animation: 0.4s moveUp 
+        }
+
+        @keyframes moveUp {
+            0% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+            25% {
+                transform: translate3d(0, -15px, 0);
+                opacity: .6;
+            }
+            50% {
+                transform: translate3d(0, -30px, 0);
+                opacity: .4;
+            }
+            75% {
+                transform: translate3d(0, -15px, 0);
+                opacity: .6;
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="card gold current"></div>
+        <div class="card silver"></div>
+    </div>
+    <script>
+        const dom = document.getElementsByClassName('card');
+        for (let i = 0; i < dom.length; i++) {
+            dom[i].addEventListener('click', function (e) {
+                Array.from(dom).forEach(element => {
+                    if (element.className.includes(e.target.className)) {
+                        if (element.className.includes('gold')) {
+                            element.classList.add('animatin_move_up')
+                        } else {
+                            element.classList.add('animatin_move_down')
+                        }
+                        element.classList.add('current')
+                    } else {
+                        if (element.className.includes('gold')) {
+                            element.classList.remove('animatin_move_up')
+                        } else {
+                            element.classList.remove('animatin_move_down')
+                        }
+                        element.classList.remove('current')
+                    }
+                });
+            })
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+.text {
+    color: blue;
+}
+
+/*
+显式的局部作用域语法 等同于.text_bg
+:local(.text_bg) {
+    background-color: pink;
+}
+*/
+
+/* 声明一个全局类名 凡是这样声明的class 都不会被编译成哈希字符串 */
+/*:global(.text_bg) {
+    background-color: pink;
+}*/
+
+.text_bg {
+    background-color: pink;
+}
+
+.base {
+    color: blue;
+    font-size: 20px;
+}
+
+.text_composes {
+    composes: base;
+    background-color: pink;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.a {
+    color: #000088;
+
+    p {
+        font-size: 18px;
+    }
+}
+.b {
+    border: 1px solid;
+}
+
