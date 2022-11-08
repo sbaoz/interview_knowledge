@@ -98,6 +98,10 @@ console.log(child2.friends);
 // 寄生式继承
 console.log("-----------寄生式继承-------------");
 // 创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象
+const parent = {
+  name: "xixi",
+  friends: ["haha", "lala"],
+};
 function createObj2(object) {
   var clone = Object.create(object);
   // 跟借用构造函数模式一样，每次创建对象都会创建一遍方法
