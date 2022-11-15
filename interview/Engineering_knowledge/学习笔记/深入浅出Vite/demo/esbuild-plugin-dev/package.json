@@ -1,0 +1,16 @@
+{
+  "name": "esbuild-plugin-dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.15.13",
+    "esbuild-darwin-arm64": "^0.15.13"
+  }
+}
