@@ -2,7 +2,7 @@
  * @Author: sbaoz xiaojz821@hotmail.com
  * @Date: 2022-11-14 15:21:08
  * @LastEditors: sbaoz xiaojz821@hotmail.com
- * @LastEditTime: 2022-11-14 15:24:14
+ * @LastEditTime: 2023-02-22 13:48:34
  * @FilePath: \interview_knowledge\interview\Engineering_knowledge\学习笔记\深入浅出Vite\demo\esbuild-plugin-dev\index.jsx
  * @Description: 第三方依赖从CND服务上拉取
  */

@@ -2,18 +2,19 @@
  * @Author: sbaoz xiaojz821@hotmail.com
  * @Date: 2022-11-14 15:09:28
  * @LastEditors: sbaoz xiaojz821@hotmail.com
- * @LastEditTime: 2022-11-15 14:24:06
+ * @LastEditTime: 2023-02-22 14:17:28
  * @FilePath: \interview_knowledge\interview\Engineering_knowledge\学习笔记\深入浅出Vite\demo\esbuild-plugin-dev\http-import-plugin.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: Esbuild插件 从网络获取模块内容并让Esbuild进行加载
  */
 module.exports = () => ({
-    name: "http",
+    name: "esbuild:http",
     setup(build) {
       let https = require("https");
       let http = require("http");
   
       // 拦截 CDN 请求
       build.onResolve({ filter: /^https?:\/\// }, (args) => {
+        console.log('拦截路径 ', args.path)
         return {
             path: args.path,
             namespace: "http-url",
@@ -22,6 +23,7 @@ module.exports = () => ({
   
       // 拦截间接依赖的路径，并重写路径
       build.onResolve({ filter: /.*/, namespace: "http-url" }, (args) => {
+        console.log('重写路径 ', new URL(args.path, args.importer).toString())
         return {
             path: new URL(args.path, args.importer).toString(),
             namespace: "http-url",
@@ -36,7 +38,6 @@ module.exports = () => ({
             let lib = url.startsWith("https") ? https : http;
             let req = lib
               .get(url, (res) => {
-                console.log(`get: ${url} `, res);
                 if ([301, 302, 307].includes(res.statusCode)) {
                   fetch(new URL(res.headers.location, url).toString());
                   req.abort();
